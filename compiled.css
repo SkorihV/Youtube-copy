@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+
+}
+
+
+@layer utilities {
+  /*сюда можно писать собаственные кастомные классы*/
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFzc2V0cy9jc3MvZ2xvYmFscy5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEiLCJmaWxlIjoiY29tcGlsZWQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHRhaWx3aW5kIGJhc2U7XG5AdGFpbHdpbmQgY29tcG9uZW50cztcbkB0YWlsd2luZCB1dGlsaXRpZXM7XG5cblxuQGxheWVyIGJhc2Uge1xuXG59XG5cblxuQGxheWVyIHV0aWxpdGllcyB7XG4gIC8q0YHRjtC00LAg0LzQvtC20L3QviDQv9C40YHQsNGC0Ywg0YHQvtCx0LDRgdGC0LLQtdC90L3Ri9C1INC60LDRgdGC0L7QvNC90YvQtSDQutC70LDRgdGB0YsqL1xufVxuIl19 */
