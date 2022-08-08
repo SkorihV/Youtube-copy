@@ -7,7 +7,15 @@
 
 }
 
+@layer components {
+
+}
+
 
 @layer utilities {
   /*сюда можно писать собаственные кастомные классы*/
+  .text-sxm {
+    font-size: 10px;
+  }
+
 }
