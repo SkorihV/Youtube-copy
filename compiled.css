@@ -2,11 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
-
 }
-
 
 @layer utilities {
   /*сюда можно писать собаственные кастомные классы*/

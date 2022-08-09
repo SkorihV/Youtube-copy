@@ -2,20 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
-
 }
 
 @layer components {
-
 }
 
-
 @layer utilities {
-  /*сюда можно писать собаственные кастомные классы*/
+  /*сюда можно писать собственные кастомные классы*/
   .text-sxm {
     font-size: 10px;
   }
-
 }
