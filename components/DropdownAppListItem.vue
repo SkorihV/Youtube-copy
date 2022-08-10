@@ -1,6 +1,6 @@
 <template>
   <li>
-    <a href="#" class="flex items-center px-3 py-2 text-sm hover:bg-gray-100">
+    <a href="#" class="flex items-center px-6 py-2 text-sm hover:bg-gray-100">
       <div class="mr-6 bg-red-600 rounded-full p-1">
         <slot></slot>
       </div>
