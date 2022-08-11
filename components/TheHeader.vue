@@ -2,7 +2,10 @@
   <header class="flex fixed z-30 w-full max-h-12 bg-opacity-95 justify-between">
     <div class="lg:w-1/4 flex">
       <div class="flex items-center pl-4 xl:w-64 lg:bg-white">
-        <button class="mr-3 sm:ml-2 sm:mr-2 focus:outline-none">
+        <button
+          @click="$emit('toggleSidebar')"
+          class="mr-3 sm:ml-2 sm:mr-2 focus:outline-none"
+        >
           <BaseIcon name="menu" class="w-6 h-6" isStroke />
         </button>
         <a href="#">
@@ -31,15 +34,8 @@
         <BaseIcon name="search" class="w-5 h-5" isStroke />
       </button>
 
-      <button class="relative group p-2 focus:outline-none">
-        <BaseIcon name="viewGrid" class="w-5 h-5" isFill />
-        <TheDropdownApp />
-      </button>
-
-      <button class="relative group p-2 focus:outline-none">
-        <BaseIcon name="dotsVertical" class="w-5 h-5" isFill />
-        <TheDropdownSettings />
-      </button>
+      <TheDropdownApp />
+      <TheDropdownSettings />
 
       <ButtonLogin />
     </div>

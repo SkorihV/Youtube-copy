@@ -13,6 +13,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {},
+      transitionProperty: {
+        width: 'width',
+      },
     },
   },
   variants: {

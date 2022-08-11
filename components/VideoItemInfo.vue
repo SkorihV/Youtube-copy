@@ -40,7 +40,9 @@ export default {
   computed: {
     summary() {
       const days = this.index === 1 ? 'день' : 'дней'
-      return `${this.index * 2}к просмотров &middot; ${this.index} ${days} назад`;
+      return `${this.index * 2}к просмотров &middot; ${
+        this.index
+      } ${days} назад`
     },
   },
 }

@@ -1,27 +1,37 @@
 <template>
-  <div
-    class="opacity-0 group-hover:opacity-100 absolute top-9 right-0 sm:left-0 bg-white w-60 border border-t-0"
-  >
-    <section class="py-2 border-b">
-      <ul>
-        <DropdownAppListItem title="Главная">
-          <BaseIcon name="home" class="w-4 h-4 text-white" isFill />
-        </DropdownAppListItem>
-      </ul>
-    </section>
-    <section class="py-2">
-      <ul>
-        <DropdownAppListItem title="YouTube Music">
-          <BaseIcon name="play" class="w-4 h-4 text-white" isFill />
-        </DropdownAppListItem>
-        <DropdownAppListItem title="YouTube Детям">
-          <BaseIcon name="children" class="w-4 h-4 text-white" isFill />
-        </DropdownAppListItem>
-        <DropdownAppListItem title="YouTube Детям">
-          <BaseIcon name="tv" class="w-4 h-4 text-white" isFill />
-        </DropdownAppListItem>
-      </ul>
-    </section>
+  <div class="relative">
+    <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
+      <BaseIcon name="viewGrid" class="w-5 h-5" isFill />
+    </button>
+    <transition
+      enter-active-class="transition ease-out duration-300"
+      enter-from-class="transition opacity-0 scale-95"
+      enter-to-class="transition opacity-100 scale-100"
+      leave-active-class="transition ease-in-out duration-300"
+      leave-from-class="transition opacity-100 scale-100"
+      leave-to-class="transition opacity-0 scale-95"
+    >
+      <div
+        v-show="isOpen"
+        class="absolute top-9 right-0 sm:left-0 bg-white w-60 border border-t-0 outline-none"
+        @keydown.esc="isOpen = false"
+        tabindex="-1"
+        ref="dropdown"
+      >
+        <section class="py-2 border-b">
+          <ul>
+            <DropdownAppListItem title="Главная" nameIcon="home" />
+          </ul>
+        </section>
+        <section class="py-2">
+          <ul>
+            <DropdownAppListItem title="YouTube Music" nameIcon="play" />
+            <DropdownAppListItem title="YouTube Детям" nameIcon="children" />
+            <DropdownAppListItem title="YouTube Детям" nameIcon="tv" />
+          </ul>
+        </section>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -34,6 +44,23 @@ export default {
   components: {
     BaseIcon,
     DropdownAppListItem,
+  },
+  mounted() {
+    window.addEventListener('click', (e) => {
+      if (!this.$el.contains(e.target)) {
+        this.isOpen = false
+      }
+    })
+  },
+  data() {
+    return {
+      isOpen: false,
+    }
+  },
+  watch: {
+    isOpen() {
+      this.$nextTick(() => this.isOpen && this.$refs.dropdown.focus())
+    },
   },
 }
 </script>

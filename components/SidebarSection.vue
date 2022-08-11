@@ -1,15 +1,13 @@
 <template>
   <section :class="$attrs.class || 'py-2 border-b'">
-      <slot></slot>
+    <slot></slot>
   </section>
 </template>
 
 <script>
 export default {
-  name: "SidebarSection"
+  name: 'SidebarSection',
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

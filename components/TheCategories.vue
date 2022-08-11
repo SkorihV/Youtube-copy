@@ -1,7 +1,5 @@
 <template>
-  <section
-    class="pt-14 fixed bg-white z-10 sm:pl-24 xl:pl-64 w-full bg-opacity-95"
-  >
+  <section :class="classes">
     <div class="max-w-screen-2xl m-auto border-t border-b px-4">
       <div
         class="py-3 flex space-x-3 overflow-x-auto text-sm whitespace-nowrap"
@@ -25,6 +23,11 @@ export default {
   components: {
     CategoryItem,
   },
+  props: {
+    isSidebarOpen: {
+      type: Boolean,
+    },
+  },
   data() {
     return {
       categories: [
@@ -39,6 +42,19 @@ export default {
         'Новое для',
       ],
     }
+  },
+  computed: {
+    classes() {
+      return [
+        this.isSidebarOpen ? 'xl:pl-64' : 'sm:pl-24',
+        'pt-14',
+        'fixed',
+        'bg-white',
+        'z-10',
+        'w-full',
+        'bg-opacity-95',
+      ]
+    },
   },
 }
 </script>
