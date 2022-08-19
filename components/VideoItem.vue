@@ -1,17 +1,19 @@
 <template>
   <a class="mb-7 group">
     <VideoItemThumbnail :index="index" />
-    <VideoItemInfo :index="index"></VideoItemInfo>
+    <VideoItemInfo :index="index" />
   </a>
 </template>
 
 <script>
 import VideoItemThumbnail from '~/components/VideoItemThumbnail'
+import VideoItemInfo from '~/components/VideoItemInfo'
 
 export default {
   name: 'VideoItem',
   components: {
     VideoItemThumbnail,
+    VideoItemInfo,
   },
   props: {
     index: {

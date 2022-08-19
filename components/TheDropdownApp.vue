@@ -1,8 +1,11 @@
 <template>
   <div class="relative">
-    <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
-      <BaseIcon name="viewGrid" class="w-5 h-5" isFill />
-    </button>
+    <BaseTooltip text="Youtube приложения">
+      <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
+        <BaseIcon name="viewGrid" class="w-5 h-5" isFill />
+      </button>
+    </BaseTooltip>
+
     <transition
       enter-active-class="transition ease-out duration-300"
       enter-from-class="transition opacity-0 scale-95"
@@ -13,7 +16,7 @@
     >
       <div
         v-show="isOpen"
-        class="absolute top-9 right-0 sm:left-0 bg-white w-60 border border-t-0 outline-none"
+        class="dropdownClasses"
         @keydown.esc="isOpen = false"
         tabindex="-1"
         ref="dropdown"
@@ -38,12 +41,14 @@
 <script>
 import BaseIcon from '~/components/BaseIcon'
 import DropdownAppListItem from '~/components/DropdownAppListItem'
+import BaseTooltip from '~/components/BaseTooltip'
 
 export default {
   name: 'TheDropdownApp',
   components: {
     BaseIcon,
     DropdownAppListItem,
+    BaseTooltip,
   },
   mounted() {
     window.addEventListener('click', (e) => {
@@ -60,6 +65,22 @@ export default {
   watch: {
     isOpen() {
       this.$nextTick(() => this.isOpen && this.$refs.dropdown.focus())
+    },
+  },
+  computed: {
+    dropdownClasses() {
+      return [
+        'z-10',
+        'absolute',
+        'top-9',
+        'right-0',
+        'sm:left-0',
+        'bg-white',
+        'w-60',
+        'border',
+        'border-t-0',
+        'outline-none',
+      ]
     },
   },
 }

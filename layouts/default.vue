@@ -1,6 +1,9 @@
 <template>
   <section class="main-wrapper text-gray-600 bg-gray-50">
-    <TheHeader @toggleSidebar="toggleSidebar" />
+    <div class="fixed w-full z-30">
+      <TheHeader @toggleSidebar="toggleSidebar" />
+      <TheCategories :isSidebarOpen="isSidebarOpen" />
+    </div>
 
     <TheSidebarCompact v-if="isCompactSidebarOpen" />
 
@@ -10,8 +13,6 @@
       :is-open="isMobileSidebarOpen"
       @closeMobileMenu="closeMobileMenu"
     />
-
-    <TheCategories :isSidebarOpen="isSidebarOpen" />
 
     <TheVideos :isSidebarOpen="isSidebarOpen" />
     <nuxt />

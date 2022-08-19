@@ -1,6 +1,6 @@
 <template>
-  <header class="flex fixed z-30 w-full max-h-12 bg-opacity-95 justify-between">
-    <div class="lg:w-1/4 flex">
+  <header :class="classes">
+    <div :class="['lg:w-1/4', 'flex', isMobileSearchShown ? 'opacity-0' : 'opacity-100']">
       <div class="flex items-center pl-4 xl:w-64 lg:bg-white">
         <button
           @click="$emit('toggleSidebar')"
@@ -13,27 +13,47 @@
         </a>
       </div>
     </div>
+    <TheSearchMobile
+      v-if="isMobileSearchShown"
+      @close="closeMobileSearch"
+    ></TheSearchMobile>
     <div
-      class="hidden sm:flex items-center justify-end p-2.5 pl-8 md:pl-12 md:px-8 lx:px-0 flex-1 lg:w-1/2 max-w-screen-md"
+      v-else
+      class="h-12 hidden sm:flex items-center justify-end p-2.5 pl-8 md:pl-12 md:px-8 lx:px-0 flex-1 lg:w-1/2 max-w-screen-md"
     >
       <TheSearch />
-      <button
-        class="focus:outline-none ml-4 bg-gray-200 p-1 rounded-full max-w-8 max-h-8 flex items-center justify-center"
-      >
-        <BaseIcon name="microphone" class="w-5 h-5" />
-      </button>
+      <BaseTooltip text="Поиск голосом">
+        <button
+          class="h-full focus:outline-none ml-4 bg-gray-200 p-1 rounded-full max-w-8 max-h-8 flex items-center justify-center"
+        >
+          <BaseIcon name="microphone" class="w-5 h-5" />
+        </button>
+      </BaseTooltip>
     </div>
     <div
-      class="flex items-center justify-end lg:w-1/4 sm:space-x-3 p-2 sm:px-4"
+      :class="[
+       'flex',
+       'items-center',
+       'justify-end',
+       'lg:w-1/4',
+       'sm:space-x-3 p-2',
+        'sm:px-4',
+        isMobileSearchShown ? 'opacity-0' : 'opacity-100'
+        ]"
     >
-      <button class="focus:outline-none p-2 sm:hidden">
-        <BaseIcon name="microphone" class="w-5 h-5" isFill />
-      </button>
-
-      <button class="focus:outline-none p-2 sm:hidden">
-        <BaseIcon name="search" class="w-5 h-5" isStroke />
-      </button>
-
+      <BaseTooltip text="Поиск голосом">
+        <button class="focus:outline-none p-2 sm:hidden">
+          <BaseIcon name="microphone" class="w-5 h-5" isFill />
+        </button>
+      </BaseTooltip>
+      <BaseTooltip text="Поиск">
+        <button
+          @click.stop="isMobileSearchActive = true"
+          class="focus:outline-none p-2 sm:hidden"
+        >
+          <BaseIcon name="search" class="w-5 h-5" isStroke />
+        </button>
+      </BaseTooltip>
       <TheDropdownApp />
       <TheDropdownSettings />
 
@@ -49,16 +69,56 @@ import LogoMain from '~/components/LogoMain'
 import TheSearch from '~/components/TheSearch'
 import ButtonLogin from '~/components/ButtonLogin'
 import BaseIcon from '~/components/BaseIcon'
+import BaseTooltip from '~/components/BaseTooltip'
+import TheSearchMobile from '~/components/TheSearchMobile'
 
 export default {
   name: 'TheHeader',
   components: {
     TheDropdownApp,
     TheDropdownSettings,
+    TheSearchMobile,
     LogoMain,
     TheSearch,
     ButtonLogin,
     BaseIcon,
+    BaseTooltip,
+  },
+  data() {
+    return {
+      isSmallScreen: false,
+      isMobileSearchActive: false,
+      classes: [
+        'flex',
+        'w-full',
+        'max-h-12',
+        'justify-between',
+        'bg-opacity-95',
+        'bg-white'
+      ],
+    }
+  },
+  mounted() {
+    this.onResize()
+    window.addEventListener('resize', this.onResize)
+  },
+  methods: {
+    onResize() {
+      if (window.innerWidth < 640) {
+        this.isSmallScreen = true
+      } else {
+        this.closeMobileSearch()
+        this.isSmallScreen = false
+      }
+    },
+    closeMobileSearch() {
+      this.isMobileSearchActive = false
+    },
+  },
+  computed: {
+    isMobileSearchShown() {
+      return this.isSmallScreen && this.isMobileSearchActive
+    },
   },
 }
 </script>

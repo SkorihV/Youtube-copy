@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <img :src="`https://picsum.photos/id/${index}/720/404`" />
+    <img :src="`https://picsum.photos/id/${index}/720/404`" alt="" />
     <VideoItemThumbnailIButton
       name-icon="clock"
       title="Смотреть позже"
@@ -15,14 +15,12 @@
 </template>
 
 <script>
-import BaseIcon from '~/components/BaseIcon'
 import VideoItemThumbnailIButton from '@/components/VideoItemThumbnailIButton'
 
 export default {
   name: 'VideoItemThumbnail',
   components: {
     VideoItemThumbnailIButton,
-    BaseIcon,
   },
   props: {
     index: {
