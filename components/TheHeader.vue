@@ -1,6 +1,12 @@
 <template>
   <header :class="classes">
-    <div :class="['lg:w-1/4', 'flex', isMobileSearchShown ? 'opacity-0' : 'opacity-100']">
+    <div
+      :class="[
+        'lg:w-1/4',
+        'flex',
+        isMobileSearchShown ? 'opacity-0' : 'opacity-100',
+      ]"
+    >
       <div class="flex items-center pl-4 xl:w-64 lg:bg-white">
         <button
           @click="$emit('toggleSidebar')"
@@ -32,14 +38,14 @@
     </div>
     <div
       :class="[
-       'flex',
-       'items-center',
-       'justify-end',
-       'lg:w-1/4',
-       'sm:space-x-3 p-2',
+        'flex',
+        'items-center',
+        'justify-end',
+        'lg:w-1/4',
+        'sm:space-x-3 p-2',
         'sm:px-4',
-        isMobileSearchShown ? 'opacity-0' : 'opacity-100'
-        ]"
+        isMobileSearchShown ? 'opacity-0' : 'opacity-100',
+      ]"
     >
       <BaseTooltip text="Поиск голосом">
         <button class="focus:outline-none p-2 sm:hidden">
@@ -94,7 +100,7 @@ export default {
         'max-h-12',
         'justify-between',
         'bg-opacity-95',
-        'bg-white'
+        'bg-white',
       ],
     }
   },

@@ -59,7 +59,8 @@ export default {
     classes() {
       return [
         'min-h-screen',
-        'overflow-x-auto',
+        'overflow-x-hidden',
+        'overflow-y-auto',
         'w-20',
         'fixed',
         'pt-14',

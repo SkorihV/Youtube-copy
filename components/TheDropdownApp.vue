@@ -16,7 +16,7 @@
     >
       <div
         v-show="isOpen"
-        class="dropdownClasses"
+        :class="dropdownClasses"
         @keydown.esc="isOpen = false"
         tabindex="-1"
         ref="dropdown"

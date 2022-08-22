@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <BaseTooltip text="Youtube настройки">
-      <button @click="isOpen = !isOpen" class="relative p-2 focus:outline-none">
+      <button @click="toggle" class="relative p-2 focus:outline-none">
         <BaseIcon name="dotsVertical" class="w-5 h-5" isFill />
       </button>
     </BaseTooltip>
@@ -9,61 +9,23 @@
       enter-active-class="transition ease-out duration-300"
       enter-from-class="transition opacity-0 scale-95"
       enter-to-class="transition opacity-100 scale-100"
-      leave-active-class="transition ease-in-out duration-300"
+      leave-active-class="transition ease-in-out duration-100"
       leave-from-class="transition opacity-100 scale-100"
       leave-to-class="transition opacity-0 scale-95"
     >
       <div
         v-show="isOpen"
-        class="dropdownClasses"
-        @keydown.esc="isOpen = false"
+        :class="dropdownClasses"
+        @keydown.esc="close"
         tabindex="-1"
         ref="dropdown"
       >
-        <section class="py-2 border-b">
-          <ul>
-            <DropdownSettingsListItem
-              icon="userData"
-              label="Личные данные на YouTube"
-            />
-          </ul>
-        </section>
-        <section class="py-2 border-b">
-          <ul>
-            <DropdownSettingsListItem
-              icon="theme"
-              label="Тема: как на устройстве"
-              is-arrow
-            />
-            <DropdownSettingsListItem
-              icon="language"
-              label="Язык: Русский"
-              is-arrow
-            />
-            <DropdownSettingsListItem
-              icon="guard"
-              label="Безопасный режим: откл"
-              is-arrow
-            />
-            <DropdownSettingsListItem
-              icon="location"
-              label="Страна: Россия"
-              is-arrow
-            />
-            <DropdownSettingsListItem icon="keyboard" label="Быстрые клавиши" />
-          </ul>
-        </section>
-        <section class="py-2 border-b">
-          <ul>
-            <DropdownSettingsListItem icon="settings" label="Настройки" />
-          </ul>
-        </section>
-        <section class="py-2">
-          <ul>
-            <DropdownSettingsListItem icon="help" label="Справка" />
-            <DropdownSettingsListItem icon="reviews" label="Отправить отзыв" />
-          </ul>
-        </section>
+        <component
+          :is="menu"
+          :selectedOptions="selectedOptions"
+          @selectMenu="showSelectedMenu"
+          @selectOption="selectOption"
+        />
       </div>
     </transition>
   </div>
@@ -71,27 +33,75 @@
 
 <script>
 import BaseIcon from '~/components/BaseIcon'
-import DropdownSettingsListItem from '~/components/DropdownSettingsListItem'
 import BaseTooltip from '~/components/BaseTooltip'
+import TheDropdownSettingsMain from '@/components/TheDropdownSettingsMain'
+import TheDropdownSettingsAppearance from '@/components/TheDropdownSettingsAppearance'
+import TheDropdownSettingsLanguage from '@/components/TheDropdownSettingsLanguage'
+import TheDropdownSettingsLocation from '@/components/TheDropdownSettingsLocation'
+import TheDropdownSettingsRestrictedMode from '@/components/TheDropdownSettingsRestrictedMode'
 
 export default {
   name: 'TheDropdownSettings',
   components: {
     BaseIcon,
-    DropdownSettingsListItem,
     BaseTooltip,
+    TheDropdownSettingsMain,
+    TheDropdownSettingsAppearance,
+    TheDropdownSettingsLanguage,
+    TheDropdownSettingsLocation,
+    TheDropdownSettingsRestrictedMode,
   },
   mounted() {
     window.addEventListener('click', (e) => {
       if (!this.$el.contains(e.target)) {
-        this.isOpen = false
+        this.close()
       }
     })
   },
   data() {
     return {
       isOpen: false,
+      selectedMenu: 'main',
+      selectedOptions: {
+        theme: {
+          id: 0,
+          text: 'Светлая тема',
+        },
+        language: {
+          id: 0,
+          text: 'English',
+        },
+        location: {
+          id: 0,
+          text: 'Австралия',
+        },
+        guard: {
+          isActive: false,
+          text: 'откл',
+        },
+      },
     }
+  },
+  methods: {
+    showSelectedMenu(selected) {
+      this.selectedMenu = selected
+      this.$refs.dropdown.focus()
+    },
+    close() {
+      this.isOpen = false
+      setTimeout(() => {
+        this.selectedMenu = 'main'
+      }, 150)
+    },
+    open() {
+      this.isOpen = true
+    },
+    toggle() {
+      this.isOpen ? this.close() : this.open()
+    },
+    selectOption(option) {
+      this.selectedOptions[option.name] = option.value
+    },
   },
   watch: {
     isOpen() {
@@ -112,6 +122,17 @@ export default {
         'border-t-0',
         'outline-none',
       ]
+    },
+    menu() {
+      const menuComponentNames = {
+        main: 'TheDropdownSettingsMain',
+        appearance: 'TheDropdownSettingsAppearance',
+        language: 'TheDropdownSettingsLanguage',
+        location: 'TheDropdownSettingsLocation',
+        guard: 'TheDropdownSettingsRestrictedMode',
+      }
+
+      return menuComponentNames[this.selectedMenu]
     },
   },
 }
