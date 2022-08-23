@@ -21,10 +21,16 @@
         ref="dropdown"
       >
         <component
+          v-if="selectedMenu"
           :is="menu"
           :selectedOptions="selectedOptions"
-          @selectMenu="showSelectedMenu"
+          @close="closeMenu"
           @selectOption="selectOption"
+        />
+        <TheDropdownSettingsMain
+          v-else
+          :menu-items="menuItems"
+          @selectMenu="selectMenu"
         />
       </div>
     </transition>
@@ -61,7 +67,7 @@ export default {
   data() {
     return {
       isOpen: false,
-      selectedMenu: 'main',
+      selectedMenu: null,
       selectedOptions: {
         theme: {
           id: 0,
@@ -83,15 +89,16 @@ export default {
     }
   },
   methods: {
-    showSelectedMenu(selected) {
-      this.selectedMenu = selected
+    selectMenu(menuItem) {
+      this.selectedMenu = menuItem
       this.$refs.dropdown.focus()
     },
     close() {
       this.isOpen = false
-      setTimeout(() => {
-        this.selectedMenu = 'main'
-      }, 150)
+      setTimeout(() => this.closeMenu(), 150)
+    },
+    closeMenu() {
+      this.selectMenu(null)
     },
     open() {
       this.isOpen = true
@@ -125,14 +132,71 @@ export default {
     },
     menu() {
       const menuComponentNames = {
-        main: 'TheDropdownSettingsMain',
         appearance: 'TheDropdownSettingsAppearance',
         language: 'TheDropdownSettingsLanguage',
         location: 'TheDropdownSettingsLocation',
         guard: 'TheDropdownSettingsRestrictedMode',
       }
 
-      return menuComponentNames[this.selectedMenu]
+      return this.selectedMenu ? menuComponentNames[this.selectedMenu.id] : null
+    },
+    menuItems() {
+      return [
+        {
+          id: 'userData',
+          label: 'Личные данные на YouTube',
+          icon: 'userData',
+          isArrow: false,
+        },
+        {
+          id: 'appearance',
+          label: 'Тема: ' + this.selectedOptions.theme.text,
+          icon: 'theme',
+          isArrow: true,
+        },
+        {
+          id: 'language',
+          label: 'Язык: ' + this.selectedOptions.language.text,
+          icon: 'language',
+          isArrow: true,
+        },
+        {
+          id: 'guard',
+          label: 'Безопасный режим: ' + this.selectedOptions.guard.text,
+          icon: 'guard',
+          isArrow: true,
+        },
+        {
+          id: 'location',
+          label: 'Страна: ' + this.selectedOptions.location.text,
+          icon: 'location',
+          isArrow: true,
+        },
+        {
+          id: 'keyboard',
+          label: 'Быстрые клавиши',
+          icon: 'keyboard',
+          isArrow: false,
+        },
+        {
+          id: 'settings',
+          label: 'Настройки',
+          icon: 'settings',
+          isArrow: false,
+        },
+        {
+          id: 'help',
+          label: 'Справка',
+          icon: 'help',
+          isArrow: false,
+        },
+        {
+          id: 'reviews',
+          label: 'Отправить отзыв',
+          icon: 'reviews',
+          isArrow: false,
+        },
+      ]
     },
   },
 }

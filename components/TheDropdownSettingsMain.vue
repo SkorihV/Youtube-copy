@@ -3,7 +3,7 @@
     <section class="py-2 border-b">
       <ul>
         <DropdownSettingsListItem
-          v-for="item in listItems.slice(0, 1)"
+          v-for="item in menuItems.slice(0, 1)"
           @click.stop.native="selectMenu(item)"
           :key="item.label"
           :icon="item.icon"
@@ -15,7 +15,7 @@
     <section class="py-2 border-b">
       <ul>
         <DropdownSettingsListItem
-          v-for="item in listItems.slice(1, 6)"
+          v-for="item in menuItems.slice(1, 6)"
           @click.stop.native="selectMenu(item)"
           :key="item.label"
           :icon="item.icon"
@@ -27,7 +27,7 @@
     <section class="py-2 border-b">
       <ul>
         <DropdownSettingsListItem
-          v-for="item in listItems.slice(6, 7)"
+          v-for="item in menuItems.slice(6, 7)"
           @click.stop.native="selectMenu(item)"
           :key="item.label"
           :icon="item.icon"
@@ -39,7 +39,7 @@
     <section class="py-2">
       <ul>
         <DropdownSettingsListItem
-          v-for="item in listItems.slice(7)"
+          v-for="item in menuItems.slice(7)"
           @click.stop.native="selectMenu(item)"
           :key="item.label"
           :icon="item.icon"
@@ -60,74 +60,17 @@ export default {
     DropdownSettingsListItem,
   },
   props: {
-    selectedOptions: {
-      type: Object,
+    menuItems: {
+      type: Array,
     },
   },
   data() {
-    return {
-      listItems: [
-        {
-          id: 'userData',
-          label: 'Личные данные на YouTube',
-          icon: 'userData',
-          isArrow: false,
-        },
-        {
-          id: 'appearance',
-          label: 'Тема: ' + this.selectedOptions.theme.text,
-          icon: 'theme',
-          isArrow: true,
-        },
-        {
-          id: 'language',
-          label: 'Язык: ' + this.selectedOptions.language.text,
-          icon: 'language',
-          isArrow: true,
-        },
-        {
-          id: 'guard',
-          label: 'Безопасный режим: ' + this.selectedOptions.guard.text,
-          icon: 'guard',
-          isArrow: true,
-        },
-        {
-          id: 'location',
-          label: 'Страна: ' + this.selectedOptions.location.text,
-          icon: 'location',
-          isArrow: true,
-        },
-        {
-          id: 'keyboard',
-          label: 'Быстрые клавиши',
-          icon: 'keyboard',
-          isArrow: false,
-        },
-        {
-          id: 'settings',
-          label: 'Настройки',
-          icon: 'settings',
-          isArrow: false,
-        },
-        {
-          id: 'help',
-          label: 'Справка',
-          icon: 'help',
-          isArrow: false,
-        },
-        {
-          id: 'reviews',
-          label: 'Отправить отзыв',
-          icon: 'reviews',
-          isArrow: false,
-        },
-      ],
-    }
+    return {}
   },
   methods: {
     selectMenu(item) {
       if (item.isArrow) {
-        this.$emit('selectMenu', item.id)
+        this.$emit('selectMenu', item)
       }
     },
   },

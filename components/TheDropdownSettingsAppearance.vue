@@ -1,9 +1,6 @@
 <template>
   <div>
-    <dropdownSettingsHeader
-      title="Отображение"
-      @back="$emit('selectMenu', 'main')"
-    />
+    <dropdownSettingsHeader title="Отображение" @back="$emit('close')" />
     <section class="py-2">
       <div class="text-gray-500 text-xs p-3">
         Настройки отображения только в браузере
@@ -22,30 +19,16 @@
 </template>
 
 <script>
-import DropdownSettingsListItem from '@/components/DropdownSettingsListItem'
-import dropdownSettingsHeader from '@/components/dropdownSettingsHeader'
+import dropdownSubmenu from '@/mixins/dropdownSubmenu'
 
 export default {
   name: 'TheDropdownSettingsAppearance',
-  components: {
-    DropdownSettingsListItem,
-    dropdownSettingsHeader,
-  },
-  props: {
-    selectedOptions: {
-      type: Object,
-    },
-  },
+  mixins: [dropdownSubmenu],
   data() {
     return {
       themes: ['Светлая тема', 'Темная тема', 'Как в системе'],
+      optionName: 'theme',
     }
-  },
-  methods: {
-    selectOption(data) {
-      console.log(data)
-      this.$emit('selectOption', { name: 'theme', value: data })
-    },
   },
 }
 </script>

@@ -4,7 +4,7 @@
       class="bg-white bg-opacity-95 max-w-screen-2xl m-auto border-t border-b px-4"
     >
       <div
-        class="py-3 flex space-x-3 overflow-x-auto text-sm whitespace-nowrap"
+        class="categoriesWrapper py-3 flex space-x-3 overflow-x-auto text-sm whitespace-nowrap"
       >
         <CategoryItem
           v-for="category in categories"
@@ -53,4 +53,14 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.categoriesWrapper::-webkit-scrollbar {
+  height: 5px;
+  background-color: aliceblue;
+  border: 1px solid #aaa;
+}
+.categoriesWrapper::-webkit-scrollbar-thumb {
+  height: 5px;
+  background: #aaaaaa;
+}
+</style>

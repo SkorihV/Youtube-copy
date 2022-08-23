@@ -58,6 +58,7 @@ export default {
   computed: {
     classes() {
       return [
+        'sidebarCompact',
         'min-h-screen',
         'overflow-x-hidden',
         'overflow-y-auto',
@@ -73,4 +74,15 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.sidebarCompact::-webkit-scrollbar {
+  width: 5px;
+  background-color: aliceblue;
+  border: 1px solid #aaa;
+}
+.sidebarCompact::-webkit-scrollbar-thumb {
+  width: 5px;
+  height: 1px;
+  background: #aaaaaa;
+}
+</style>

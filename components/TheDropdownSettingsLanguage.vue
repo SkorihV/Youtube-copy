@@ -1,9 +1,6 @@
 <template>
   <div>
-    <dropdownSettingsHeader
-      title="Выбери свой язык"
-      @back="$emit('selectMenu', 'main')"
-    />
+    <dropdownSettingsHeader title="Выбери свой язык" @back="$emit('close')" />
     <section class="py-2">
       <ul class="max-h-96 overflow-auto">
         <DropdownSettingsListItem
@@ -19,29 +16,15 @@
 </template>
 
 <script>
-import DropdownSettingsListItem from '@/components/DropdownSettingsListItem'
-import dropdownSettingsHeader from '@/components/dropdownSettingsHeader'
-
+import dropdownSubmenu from '@/mixins/dropdownSubmenu'
 export default {
   name: 'TheDropdownSettingsAppearance',
-  components: {
-    DropdownSettingsListItem,
-    dropdownSettingsHeader,
-  },
-  props: {
-    selectedOptions: {
-      type: Object,
-    },
-  },
+  mixins: [dropdownSubmenu],
   data() {
     return {
       languages: ['English', 'Русский'],
+      optionName: 'language',
     }
-  },
-  methods: {
-    selectOption(data) {
-      this.$emit('selectOption', { name: 'language', value: data })
-    },
   },
 }
 </script>

@@ -1,6 +1,10 @@
 <template>
   <li>
-    <a href="#" class="flex items-center px-3 py-2 text-sm hover:bg-gray-100">
+    <a
+      href="#"
+      @click.prevent
+      class="flex items-center px-3 py-2 text-sm hover:bg-gray-100"
+    >
       <BaseIcon
         v-if="isIconShown"
         :name="iconName"

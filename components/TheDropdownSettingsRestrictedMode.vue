@@ -1,47 +1,34 @@
 <template>
   <div>
-    <dropdownSettingsHeader
-      title="Безопасный режим"
-      @back="$emit('selectMenu', 'main')"
-    />
+    <dropdownSettingsHeader title="Безопасный режим" @back="$emit('close')" />
     <section class="px-3 py-4 space-y-4 text-black text-sm">
       <p>
         В безопасном режиме скрыты видео, которые не подходят для детей. Хотя
         идеальных фильтров не существует, в большинстве случаев защита работает.
       </p>
       <p>Безопасный режим будет включен только в этом браузере.</p>
-      <div class="text-gray-400 font-semibold">
-        <label class="flex items-center">
-          ВКЛЮЧИТЬ БЕЗОПАСНЫЙ РЕЖИМ
-          <span class="uppercase mr-4">
-            <input
-              type="checkbox"
-              name="ВКЛЮЧИТЬ БЕЗОПАСНЫЙ РЕЖИМ"
-              :checked="selectedOptions.guard.isActive"
-              @input="selectOption"
-            />
-          </span>
-        </label>
-      </div>
+
+      <label class="text-gray-400 font-semibold flex items-center">
+        ВКЛЮЧИТЬ БЕЗОПАСНЫЙ РЕЖИМ
+        <span class="uppercase mr-4">
+          <input
+            type="checkbox"
+            name="ВКЛЮЧИТЬ БЕЗОПАСНЫЙ РЕЖИМ"
+            :checked="selectedOptions.guard.isActive"
+            @input="selectOption"
+          />
+        </span>
+      </label>
     </section>
   </div>
 </template>
 
 <script>
-import DropdownSettingsListItem from '@/components/DropdownSettingsListItem'
-import dropdownSettingsHeader from '@/components/dropdownSettingsHeader'
+import dropdownSubmenu from '@/mixins/dropdownSubmenu'
 
 export default {
   name: 'TheDropdownSettingsAppearance',
-  components: {
-    DropdownSettingsListItem,
-    dropdownSettingsHeader,
-  },
-  props: {
-    selectedOptions: {
-      type: Object,
-    },
-  },
+  mixins: [dropdownSubmenu],
   methods: {
     selectOption($event) {
       const isActive = $event.target.checked
