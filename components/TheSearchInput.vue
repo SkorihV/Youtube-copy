@@ -6,10 +6,14 @@
       :class="classes"
       ref="input"
       v-model="searchQuery"
-      @blur="setState(false)"
       @focus="setState(true)"
       @keyup.esc="handleEsc"
-      @click="setState(true)"
+      @click.stop="setState(true)"
+      @keyup.up="$emit('handlePreviousSearchResult')"
+      @keyup.down="$emit('handleNextSearchResult')"
+      @keydown.down.prevent
+      @keydown.up.prevent
+      @keydown.enter="handleEnter"
     />
     <button
       v-show="searchQuery"
@@ -43,13 +47,13 @@ export default {
   },
   data() {
     return {
-      isActive: false
+      isActive: false,
     }
   },
   methods: {
     onKeydown(e) {
       const isInputFocused = this.$refs.input === document.activeElement
-      if (e.code === 'Slash' && !isInputFocused ) {
+      if (e.code === 'Slash' && !isInputFocused) {
         e.preventDefault()
 
         this.$refs.input.focus()
@@ -67,9 +71,14 @@ export default {
       }
     },
     clear() {
-      this.searchQuery = '';
+      this.searchQuery = ''
       this.$refs.input.focus()
-    }
+    },
+    handleEnter() {
+      this.setState(false)
+      this.$refs.input.blur()
+      this.$emit('enter')
+    },
   },
   computed: {
     classes() {

@@ -1,8 +1,17 @@
 <template>
   <div :class="classes">
     <ul>
-      <li v-for="result in results" :key="result" :class="classesItems">
-        {{ result }}
+      <li
+        v-for="(text, id) in results"
+        :key="text"
+        :class="getItemClasses(id)"
+        @mouseenter="$emit('search-result-mouseenter', id)"
+        @mouseleave="$emit('search-result-mouseleave')"
+        @click.stop="$emit('search-result-click')"
+      >
+        <span @mouseenter="$emit('search-result-mouseenter', id)">{{
+          text
+        }}</span>
       </li>
     </ul>
     <a href="#" :class="reportLinkClasses"
@@ -18,6 +27,9 @@ export default {
     results: {
       type: Array,
     },
+    activeResultId: {
+      type: Number,
+    },
   },
   data() {
     return {
@@ -31,14 +43,6 @@ export default {
         'border-gray-300',
         'shadow-md pt-4',
       ],
-      classesItems: [
-        'hover:bg-gray-100',
-        'text-black',
-        'px-3',
-        'py-1',
-        'select-none',
-        'truncate',
-      ],
       reportLinkClasses: [
         'text-xs',
         'mx-2',
@@ -49,6 +53,18 @@ export default {
         'hover:text-black',
       ],
     }
+  },
+  methods: {
+    getItemClasses(resultId) {
+      return [
+        resultId === this.activeResultId ? 'bg-gray-100' : 'bg-transparent',
+        'text-black',
+        'px-3',
+        'py-1',
+        'select-none',
+        'truncate',
+      ]
+    },
   },
 }
 </script>

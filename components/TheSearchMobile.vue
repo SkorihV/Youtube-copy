@@ -10,7 +10,10 @@
         />
       </button>
     </BaseTooltip>
-    <TheSearch />
+    <TheSearch
+      :searchQuery="searchQuery"
+      @updateSearchQuery="$emit('updateSearchQuery', $event)"
+    />
     <BaseTooltip text="Поиск голосом" left>
       <button
         class="h-full focus:outline-none ml-4 bg-gray-200 p-1 rounded-full max-w-8 max-h-8 flex items-center justify-center"
@@ -32,6 +35,11 @@ export default {
     TheSearch,
     BaseTooltip,
     baseIcon,
+  },
+  props: {
+    searchQuery: {
+      type: String,
+    },
   },
   mounted() {
     window.addEventListener('click', this.onclick)

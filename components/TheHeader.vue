@@ -22,20 +22,14 @@
     <TheSearchMobile
       v-if="isMobileSearchShown"
       @close="closeMobileSearch"
-    ></TheSearchMobile>
-    <div
+      :searchQuery="searchQuery"
+      @updateSearchQuery="searchQuery = $event"
+    />
+    <TheSearchMain
       v-else
-      class="h-12 hidden sm:flex items-center justify-end p-2.5 pl-8 md:pl-12 md:px-8 lx:px-0 flex-1 lg:w-1/2 max-w-screen-md"
-    >
-      <TheSearch />
-      <BaseTooltip text="Поиск голосом">
-        <button
-          class="h-full focus:outline-none ml-4 bg-gray-200 p-1 rounded-full max-w-8 max-h-8 flex items-center justify-center"
-        >
-          <BaseIcon name="microphone" class="w-5 h-5" />
-        </button>
-      </BaseTooltip>
-    </div>
+      :searchQuery="searchQuery"
+      @updateSearchQuery="searchQuery = $event"
+    />
     <div
       :class="[
         'flex',
@@ -77,6 +71,7 @@ import ButtonLogin from '~/components/ButtonLogin'
 import BaseIcon from '~/components/BaseIcon'
 import BaseTooltip from '~/components/BaseTooltip'
 import TheSearchMobile from '~/components/TheSearchMobile'
+import TheSearchMain from '@/components/TheSearchMain'
 
 export default {
   name: 'TheHeader',
@@ -89,6 +84,7 @@ export default {
     ButtonLogin,
     BaseIcon,
     BaseTooltip,
+    TheSearchMain,
   },
   data() {
     return {
@@ -102,6 +98,7 @@ export default {
         'bg-opacity-95',
         'bg-white',
       ],
+      searchQuery: '',
     }
   },
   mounted() {
