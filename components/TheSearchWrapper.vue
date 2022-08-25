@@ -1,6 +1,6 @@
 <template>
-  <div class="flex absolute h-12 w-full z-10 p-2">
-    <BaseTooltip text="Назад" right>
+  <div :class="classes">
+    <BaseTooltip v-if="isSmallScreen"  text="Назад" right>
       <button @click="close" class="mr-2 p-2 focus:outline-none">
         <BaseIcon
           name="leftArrow"
@@ -10,11 +10,8 @@
         />
       </button>
     </BaseTooltip>
-    <TheSearch
-      :searchQuery="searchQuery"
-      @updateSearchQuery="$emit('updateSearchQuery', $event)"
-    />
-    <BaseTooltip text="Поиск голосом" left>
+    <TheSearch/>
+    <BaseTooltip text="Поиск голосом" :left="isSmallScreen">
       <button
         class="h-full focus:outline-none ml-4 bg-gray-200 p-1 rounded-full max-w-8 max-h-8 flex items-center justify-center"
       >
@@ -30,22 +27,19 @@ import BaseTooltip from '~/components/BaseTooltip'
 import baseIcon from '~/components/BaseIcon'
 
 export default {
-  name: 'TheSearchMobile',
+  name: 'TheSearchWrapper',
   components: {
     TheSearch,
     BaseTooltip,
     baseIcon,
   },
   props: {
-    searchQuery: {
-      type: String,
+    isSmallScreen: {
+      type: Boolean
     },
   },
   mounted() {
     window.addEventListener('click', this.onclick)
-  },
-  beforeDestroy() {
-    window.removeEventListener('click', this.onclick)
   },
   methods: {
     close() {
@@ -57,6 +51,33 @@ export default {
       }
     },
   },
+  computed: {
+    classes() {
+      return this.isSmallScreen ?
+        [
+          'flex',
+          'absolute',
+          'h-12',
+          'w-full',
+          'z-10',
+          'p-2',
+          'bg-white'
+        ] : [
+          'h-12',
+          'sm:flex',
+          'items-center',
+          'justify-end',
+          'p-2.5',
+          'pl-8',
+          'md:pl-12',
+          'md:px-8',
+          'lx:px-0',
+          'flex-1',
+          'lg:w-1/2',
+          'max-w-screen-md',
+        ]
+    }
+  }
 }
 </script>
 

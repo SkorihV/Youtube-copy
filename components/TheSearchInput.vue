@@ -28,6 +28,7 @@
 <script>
 import BaseIcon from '@/components/BaseIcon'
 
+
 export default {
   name: 'TheSearchInput',
   components: {
@@ -40,11 +41,8 @@ export default {
 
     document.addEventListener('keydown', this.onKeydown)
   },
-  props: ['value', 'hasResults'],
-
-  destroyed() {
-    document.removeEventListener('keydown', this.onKeydown)
-  },
+  props: ['value', 'hasResults', ],
+  inject: ['isMobileSearchActive'],
   data() {
     return {
       isActive: false,
@@ -79,6 +77,16 @@ export default {
       this.$refs.input.blur()
       this.$emit('enter')
     },
+  },
+  watch: {
+    'isMobileSearchActive' (isMobileSearchActive) {
+    if(isMobileSearchActive) {
+      this.$nextTick(() => {
+        this.$refs.input.focus()
+
+      })
+      }
+    }
   },
   computed: {
     classes() {

@@ -35,18 +35,16 @@ export default {
     TheSearchButton,
     TheSearchResult,
   },
-  props: ['searchQuery'],
+  props: ['searchQuery',],
   mounted() {
-    document.addEventListener('click', this.handleClick)
-  },
-  beforeDestroy() {
-    document.removeEventListener('click', this.handleClick)
+    window.addEventListener('click', this.onClickAndResize)
+    window.addEventListener('resize', this.onClickAndResize)
   },
   data() {
     return {
       results: [],
-      query: this.searchQuery,
-      activeQuery: this.searchQuery,
+      query: '',
+      activeQuery: '',
       isSearchResultShown: false,
       activeSearchResultId: null,
       keywords: [
@@ -61,7 +59,7 @@ export default {
     }
   },
   methods: {
-    handleClick() {
+    onClickAndResize() {
       this.toggleState(false)
     },
     updateSearchResults() {
@@ -117,20 +115,15 @@ export default {
         : this.activeQuery
     },
     selectSearchResult() {
-      this.query = this.activeSearchResultId
-        ? this.results[this.activeSearchResultId]
-        : this.query
+      this.query = this.activeSearchResultId === null
+        ? this.query
+        : this.results[this.activeSearchResultId]
 
       this.toggleState(false)
       this.updateSearchResults()
     },
   },
-  computed: {},
-  watch: {
-    query(query) {
-      this.$emit('updateSearchQuery', query)
-    },
-  },
+
 }
 </script>
 

@@ -1,11 +1,7 @@
 <template>
   <header :class="classes">
     <div
-      :class="[
-        'lg:w-1/4',
-        'flex',
-        isMobileSearchShown ? 'opacity-0' : 'opacity-100',
-      ]"
+      :class="leftSideClasses"
     >
       <div class="flex items-center pl-4 xl:w-64 lg:bg-white">
         <button
@@ -19,27 +15,13 @@
         </a>
       </div>
     </div>
-    <TheSearchMobile
-      v-if="isMobileSearchShown"
+    <TheSearchWrapper
+      v-show="isSearchShown"
+      :is-small-screen="isSmallScreen"
       @close="closeMobileSearch"
-      :searchQuery="searchQuery"
-      @updateSearchQuery="searchQuery = $event"
-    />
-    <TheSearchMain
-      v-else
-      :searchQuery="searchQuery"
-      @updateSearchQuery="searchQuery = $event"
     />
     <div
-      :class="[
-        'flex',
-        'items-center',
-        'justify-end',
-        'lg:w-1/4',
-        'sm:space-x-3 p-2',
-        'sm:px-4',
-        isMobileSearchShown ? 'opacity-0' : 'opacity-100',
-      ]"
+      :class="rightSideClasses"
     >
       <BaseTooltip text="Поиск голосом">
         <button class="focus:outline-none p-2 sm:hidden">
@@ -70,21 +52,21 @@ import TheSearch from '~/components/TheSearch'
 import ButtonLogin from '~/components/ButtonLogin'
 import BaseIcon from '~/components/BaseIcon'
 import BaseTooltip from '~/components/BaseTooltip'
-import TheSearchMobile from '~/components/TheSearchMobile'
-import TheSearchMain from '@/components/TheSearchMain'
+import TheSearchWrapper from '@/components/TheSearchWrapper'
+import {computed} from 'vue'
+
 
 export default {
   name: 'TheHeader',
   components: {
     TheDropdownApp,
     TheDropdownSettings,
-    TheSearchMobile,
+    TheSearchWrapper,
     LogoMain,
     TheSearch,
     ButtonLogin,
     BaseIcon,
     BaseTooltip,
-    TheSearchMain,
   },
   data() {
     return {
@@ -98,12 +80,16 @@ export default {
         'bg-opacity-95',
         'bg-white',
       ],
-      searchQuery: '',
     }
   },
   mounted() {
     this.onResize()
     window.addEventListener('resize', this.onResize)
+  },
+  provide () {
+    return {
+      isMobileSearchActive: computed(() =>  this.isMobileSearchActive)
+    }
   },
   methods: {
     onResize() {
@@ -118,10 +104,35 @@ export default {
       this.isMobileSearchActive = false
     },
   },
+
   computed: {
-    isMobileSearchShown() {
-      return this.isSmallScreen && this.isMobileSearchActive
+    isSearchShown () {
+      return this.isMobileSearchShown || !this.isSmallScreen
     },
+    isMobileSearchShown() {
+      return this.isMobileSearchActive && this.isSmallScreen
+    },
+    opacity () {
+       return this.isMobileSearchShown ? 'opacity-0' : 'opacity-100'
+    },
+    leftSideClasses() {
+      return [
+        'lg:w-1/4',
+        'flex',
+        this.opacity,
+      ]
+    },
+    rightSideClasses() {
+      return [
+        'flex',
+        'items-center',
+        'justify-end',
+        'lg:w-1/4',
+        'sm:space-x-3 p-2',
+        'sm:px-4',
+        this.opacity,
+      ]
+    }
   },
 }
 </script>

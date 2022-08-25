@@ -44,18 +44,7 @@ export default {
   data() {
     return {
       isShown: false,
-      classes: [
-        'bg-gray-600',
-        'bg-opacity-80',
-        'rounded-sm',
-        'text-white',
-        'text-sm',
-        'whitespace-nowrap',
-        'absolute',
-        'p-2',
-        'transform',
-        ...this.getPositionClasses(),
-      ],
+
     }
   },
   methods: {
@@ -73,7 +62,23 @@ export default {
       return [topClass, 'left-1/2', '-translate-x-1/2']
     },
   },
-  computed: {},
+  computed: {
+    classes() {
+      return [
+        'bg-gray-600',
+        'bg-opacity-80',
+        'rounded-sm',
+        'text-white',
+        'text-sm',
+        'whitespace-nowrap',
+        'absolute',
+        'p-2',
+        'transform',
+        ...this.getPositionClasses(),
+      ]
+    }
+
+  },
 }
 </script>
 
