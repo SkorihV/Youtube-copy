@@ -13,25 +13,29 @@
     <TheSearch/>
     <BaseTooltip text="Поиск голосом" :left="isSmallScreen">
       <button
+        @click="isVoiceModalOpen = true"
         class="h-full focus:outline-none ml-4 bg-gray-200 p-1 rounded-full max-w-8 max-h-8 flex items-center justify-center"
       >
         <BaseIcon name="microphone" class="w-5 h-5" />
       </button>
     </BaseTooltip>
+    <BaseModal v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false"/>
   </div>
 </template>
 
 <script>
 import TheSearch from '~/components/TheSearch'
 import BaseTooltip from '~/components/BaseTooltip'
-import baseIcon from '~/components/BaseIcon'
+import BaseIcon from '~/components/BaseIcon'
+import BaseModal from "@/components/BaseModal";
 
 export default {
   name: 'TheSearchWrapper',
   components: {
     TheSearch,
     BaseTooltip,
-    baseIcon,
+    BaseIcon,
+    BaseModal
   },
   props: {
     isSmallScreen: {
@@ -40,6 +44,11 @@ export default {
   },
   mounted() {
     window.addEventListener('click', this.onclick)
+  },
+  data() {
+    return {
+      isVoiceModalOpen: false,
+    }
   },
   methods: {
     close() {

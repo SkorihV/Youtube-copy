@@ -16,7 +16,7 @@
 import BaseIcon from '@/components/BaseIcon'
 
 export default {
-  name: 'dropdownSettingsHeader',
+  name: 'DropdownSettingsHeader',
   components: {
     BaseIcon,
   },

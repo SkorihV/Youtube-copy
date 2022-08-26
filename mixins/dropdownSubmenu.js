@@ -1,5 +1,5 @@
 import DropdownSettingsListItem from '@/components/DropdownSettingsListItem'
-import dropdownSettingsHeader from '@/components/dropdownSettingsHeader'
+import dropdownSettingsHeader from '@/components/DropdownSettingsHeader'
 
 export default {
   components: {

@@ -8,10 +8,10 @@
     <transition
       enter-active-class="transition ease-out duration-300"
       enter-from-class="transition opacity-0 scale-95"
-      enter-to-class="transition opacity-100 scale-100"
+      enter-to-class="transform opacity-100 scale-100"
       leave-active-class="transition ease-in-out duration-100"
-      leave-from-class="transition opacity-100 scale-100"
-      leave-to-class="transition opacity-0 scale-95"
+      leave-from-class="transform opacity-100 scale-100"
+      leave-to-class="transform opacity-0 scale-95"
     >
       <div
         v-show="isOpen"
