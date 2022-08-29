@@ -1,20 +1,18 @@
 <template>
   <button class="p-2 focus:outline-none">
-    <BaseIcon name="x" is-svg-stroke/>
+    <BaseIcon name="x" is-svg-stroke />
   </button>
 </template>
 
 <script>
-import BaseIcon from "@/components/BaseIcon";
+import BaseIcon from '@/components/BaseIcon'
 
 export default {
-  name: "BaseModalButtonClose",
+  name: 'BaseModalButtonClose',
   components: {
-    BaseIcon
-  }
+    BaseIcon,
+  },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

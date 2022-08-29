@@ -1,8 +1,6 @@
 <template>
   <header :class="classes">
-    <div
-      :class="leftSideClasses"
-    >
+    <div :class="leftSideClasses">
       <div class="flex items-center pl-4 xl:w-64 lg:bg-white">
         <button
           @click="$emit('toggleSidebar')"
@@ -19,12 +17,11 @@
       v-show="isSearchShown"
       :is-small-screen="isSmallScreen"
       @close="closeMobileSearch"
+      @openVoiceModal="isVoiceModalOpen = true"
     />
-    <div
-      :class="rightSideClasses"
-    >
+    <div :class="rightSideClasses">
       <BaseTooltip text="Поиск голосом">
-        <button class="focus:outline-none p-2 sm:hidden">
+        <button @click="isVoiceModalOpen = true" class="focus:outline-none p-2 sm:hidden">
           <BaseIcon name="microphone" class="w-5 h-5" isFill />
         </button>
       </BaseTooltip>
@@ -41,6 +38,8 @@
 
       <ButtonLogin />
     </div>
+    <TheModalSearchWithVoice v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false" />
+
   </header>
 </template>
 
@@ -53,8 +52,8 @@ import ButtonLogin from '~/components/ButtonLogin'
 import BaseIcon from '~/components/BaseIcon'
 import BaseTooltip from '~/components/BaseTooltip'
 import TheSearchWrapper from '@/components/TheSearchWrapper'
-import {computed} from 'vue'
-
+import TheModalSearchWithVoice from "@/components/TheModalSearchWithVoice";
+import { computed } from 'vue'
 
 export default {
   name: 'TheHeader',
@@ -67,6 +66,7 @@ export default {
     ButtonLogin,
     BaseIcon,
     BaseTooltip,
+    TheModalSearchWithVoice,
   },
   data() {
     return {
@@ -80,15 +80,17 @@ export default {
         'bg-opacity-95',
         'bg-white',
       ],
+      isVoiceModalOpen: false,
+
     }
   },
   mounted() {
     this.onResize()
     window.addEventListener('resize', this.onResize)
   },
-  provide () {
+  provide() {
     return {
-      isMobileSearchActive: computed(() =>  this.isMobileSearchActive)
+      isMobileSearchActive: computed(() => this.isMobileSearchActive),
     }
   },
   methods: {
@@ -106,21 +108,17 @@ export default {
   },
 
   computed: {
-    isSearchShown () {
+    isSearchShown() {
       return this.isMobileSearchShown || !this.isSmallScreen
     },
     isMobileSearchShown() {
       return this.isMobileSearchActive && this.isSmallScreen
     },
-    opacity () {
-       return this.isMobileSearchShown ? 'opacity-0' : 'opacity-100'
+    opacity() {
+      return this.isMobileSearchShown ? 'opacity-0' : 'opacity-100'
     },
     leftSideClasses() {
-      return [
-        'lg:w-1/4',
-        'flex',
-        this.opacity,
-      ]
+      return ['lg:w-1/4', 'flex', this.opacity]
     },
     rightSideClasses() {
       return [
@@ -132,7 +130,7 @@ export default {
         'sm:px-4',
         this.opacity,
       ]
-    }
+    },
   },
 }
 </script>

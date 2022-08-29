@@ -35,7 +35,7 @@ export default {
     TheSearchButton,
     TheSearchResult,
   },
-  props: ['searchQuery',],
+  props: ['searchQuery'],
   mounted() {
     window.addEventListener('click', this.onClickAndResize)
     window.addEventListener('resize', this.onClickAndResize)
@@ -115,15 +115,15 @@ export default {
         : this.activeQuery
     },
     selectSearchResult() {
-      this.query = this.activeSearchResultId === null
-        ? this.query
-        : this.results[this.activeSearchResultId]
+      this.query =
+        this.activeSearchResultId === null
+          ? this.query
+          : this.results[this.activeSearchResultId]
 
       this.toggleState(false)
       this.updateSearchResults()
     },
   },
-
 }
 </script>
 

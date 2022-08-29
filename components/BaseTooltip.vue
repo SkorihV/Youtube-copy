@@ -44,7 +44,6 @@ export default {
   data() {
     return {
       isShown: false,
-
     }
   },
   methods: {
@@ -76,8 +75,7 @@ export default {
         'transform',
         ...this.getPositionClasses(),
       ]
-    }
-
+    },
   },
 }
 </script>
