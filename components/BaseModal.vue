@@ -13,14 +13,17 @@
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
-      <BaseModalOverlay v-if="isOpen" @click.native="close"></BaseModalOverlay>
+      <BaseModalOverlay @click.native="close"></BaseModalOverlay>
     </transition>
-    <div v-if="isOpen" class="relative bg-white w-2/3 mx-auto my-8">
-      <div class="p-2 text-right">
+    <div class="relative bg-white w-full sm:w-2/3 mx-auto my-8">
+      <div v-if="withCloseButton" class="p-2 text-right">
         <BaseModalButtonClose @click.native="close" />
       </div>
       <div class="p-6">
-        <slot/>
+        <slot />
+      </div>
+      <div>
+        <slot name="footer" :close="close" />
       </div>
     </div>
   </div>
@@ -38,6 +41,11 @@ export default {
   },
   mounted() {
     this.$el.focus()
+  },
+  props: {
+    withCloseButton: {
+      type: Boolean,
+    },
   },
   data() {
     return {

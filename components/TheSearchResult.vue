@@ -14,15 +14,27 @@
         }}</span>
       </li>
     </ul>
-    <a href="#" :class="reportLinkClasses"
+    <a
+      href="#"
+      :class="reportLinkClasses"
+      @click.prevent.stop="openSearchPredictionModal"
       >Пожаловаться на результаты подсказок</a
     >
+    <TheModalSearchPredictions
+      v-if="isSearchPredictionModalOpen"
+      @close="isSearchPredictionModalOpen = false"
+    />
   </div>
 </template>
 
 <script>
+import TheModalSearchPredictions from '@/components/TheModalSearchPredictions'
+
 export default {
   name: 'TheSearchResult',
+  components: {
+    TheModalSearchPredictions,
+  },
   props: {
     results: {
       type: Array,
@@ -33,6 +45,7 @@ export default {
   },
   data() {
     return {
+      isSearchPredictionModalOpen: false,
       classes: [
         'absolute',
         'top-full',
@@ -64,6 +77,9 @@ export default {
         'select-none',
         'truncate',
       ]
+    },
+    openSearchPredictionModal() {
+      this.isSearchPredictionModalOpen = true
     },
   },
 }

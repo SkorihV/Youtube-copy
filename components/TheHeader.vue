@@ -21,7 +21,10 @@
     />
     <div :class="rightSideClasses">
       <BaseTooltip text="Поиск голосом">
-        <button @click="isVoiceModalOpen = true" class="focus:outline-none p-2 sm:hidden">
+        <button
+          @click="isVoiceModalOpen = true"
+          class="focus:outline-none p-2 sm:hidden"
+        >
           <BaseIcon name="microphone" class="w-5 h-5" isFill />
         </button>
       </BaseTooltip>
@@ -38,8 +41,10 @@
 
       <ButtonLogin />
     </div>
-    <TheModalSearchWithVoice v-if="isVoiceModalOpen" @close="isVoiceModalOpen = false" />
-
+    <TheModalSearchWithVoice
+      v-if="isVoiceModalOpen"
+      @close="isVoiceModalOpen = false"
+    />
   </header>
 </template>
 
@@ -52,7 +57,7 @@ import ButtonLogin from '~/components/ButtonLogin'
 import BaseIcon from '~/components/BaseIcon'
 import BaseTooltip from '~/components/BaseTooltip'
 import TheSearchWrapper from '@/components/TheSearchWrapper'
-import TheModalSearchWithVoice from "@/components/TheModalSearchWithVoice";
+import TheModalSearchWithVoice from '@/components/TheModalSearchWithVoice'
 import { computed } from 'vue'
 
 export default {
@@ -81,7 +86,6 @@ export default {
         'bg-white',
       ],
       isVoiceModalOpen: false,
-
     }
   },
   mounted() {
