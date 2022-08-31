@@ -21,6 +21,7 @@
       >Пожаловаться на результаты подсказок</a
     >
     <TheModalSearchPredictions
+      :search-predictions="results"
       v-if="isSearchPredictionModalOpen"
       @close="isSearchPredictionModalOpen = false"
     />
